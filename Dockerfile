@@ -1,5 +1,5 @@
 FROM uhopper/hadoop:2.7.2
-MAINTAINER ra.vitillo@gmail.com
+
 
 ENV HIVE_VERSION 2.1.0
 ENV DOCKERIZE_VERSION v0.2.0
@@ -20,6 +20,8 @@ ADD resources/entrypoint_hive.sh entrypoint_hive.sh
 ADD resources/hive-site.xml.template $HIVE_CONF/hive-site.xml.template
 ADD resources/hive-log4j.properties.template $HIVE_CONF/hive-log4j.properties.template
 RUN chmod +x entrypoint_hive.sh
+
+COPY ./lib/* /usr/local/bin/hive-dist/apache-hive-2.1.0-bin/lib/
 
 ENTRYPOINT ["./entrypoint_hive.sh"]
 CMD ["hive --service metastore"]
